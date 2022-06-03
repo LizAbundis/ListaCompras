@@ -3,6 +3,7 @@ let costoTotal = 0;
 let totalEnProductos=0;
 let element = document.getElementById("totalPrecio");
 element.innerHTML="Total en precio";
+let datos = [];
 
 let txtNombre = document.getElementById("Name");
 //txtNombre.value="Leche Semidescremada";
@@ -96,6 +97,17 @@ costoTotal += (precio * cantidad);
 total.innerHTML = `$ ${costoTotal.toFixed(2)}`;
 localStorage.setItem("precioTotal", costoTotal.toFixed(2));
 
+//JSON
+let elementos=`{ "id": ${contador}, 
+"nombre":"${txtNumber.value}", 
+"cantidad": ${txtNumber.value},
+"precio":${precio}
+}`;
+
+datos.push(JSON.parse(elemento));
+localStorage.setItem(" elementosTabla", JSON.stringify(datos));
+console.log(datos);
+
 let tmp = `<tr>
  <th scope="row">${contador}</th>
  <td>${txtNombre.value}</td>
@@ -134,12 +146,17 @@ if (localStorage.getItem ("contadorProductos")!=null)   {
     costoTotal = parseFloat(localStorage.getItem ("precioTotal"));
     total.innerHTML = costoTotal;
   }//if precioTotal
+  if(this.localStorage.getItem("elementosTabla")!=null){
+datos= JSON.parse(this.localStorage.getItem("elementosTabla"));
+datos.forEach(element => {
+  cuerpoTabla[0].innerHTML += `<tr>
+  <the scope="row">${element.id}</th>
+  <td>${element.nombre}</td>
+  <td>${element.cantidad}</td>
+  <td>${element.precio}</td>
+  </tr>
+  });
+  
+
 }
 );
-
-            }
-            );
-            
-            
-            //console.log("click en el botón agregar", event);
-            // Agregar.onclick
